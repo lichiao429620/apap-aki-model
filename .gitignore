@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+catboost_info/
+*.csv
+!external_missing_rates.json
+.DS_Store
