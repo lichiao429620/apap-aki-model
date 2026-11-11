@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>APAP-associated AKI risk in diabetes</title>
+<meta name="description" content="Machine learning model predicting acetaminophen-associated acute kidney injury in hospitalized patients with diabetes from 15 routine first-day laboratory tests.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">Machine learning risk calculator</p>
+    <h1>Acetaminophen-associated acute kidney<br>injury in hospitalized patients with diabetes</h1>
+    <p class="sub">CatBoost &middot; 15 routine first-day laboratory tests &middot; hold-out AUC 0.873 &middot; external AUC 0.716</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="card note">
+    <strong>How to use</strong>
+    <p>Enter the first laboratory values obtained within 24 h of admission. Fields left blank are treated as missing; the model handles missing values natively and does not require imputation. The calculator returns the predicted probability of AKI and a risk band.</p>
+  </div>
+
+  <form id="risk-form" autocomplete="off">
+    
+      <section class="group">
+        <h2>Other</h2>
+        <div class="grid">
+        <div class="field">
+          <label for="smoker">Smoking history </label>
+          <input type="number" step="any" id="smoker" name="smoker" placeholder="0 = no, 1 = yes" data-feature="smoker">
+          
+        </div></div>
+      </section>
+      <section class="group">
+        <h2>Oxygenation and acid-base</h2>
+        <div class="grid">
+        <div class="field">
+          <label for="pao2fio2ratio_first">PaO₂/FiO₂ ratio <span class="unit">mmHg</span></label>
+          <input type="number" step="any" id="pao2fio2ratio_first" name="pao2fio2ratio_first" placeholder="100 – 450" data-feature="pao2fio2ratio_first">
+          
+        </div>
+        <div class="field">
+          <label for="pco2_first">PaCO₂ <span class="unit">mmHg</span></label>
+          <input type="number" step="any" id="pco2_first" name="pco2_first" placeholder="25 – 70" data-feature="pco2_first">
+          
+        </div>
+        <div class="field">
+          <label for="aado2_calc_first">Alveolar-arterial oxygen gradient (AaDO₂) <span class="unit">mmHg</span></label>
+          <input type="number" step="any" id="aado2_calc_first" name="aado2_calc_first" placeholder="20 – 500" data-feature="aado2_calc_first">
+          <div class="hint">Higher on supplemental oxygen</div>
+        </div>
+        <div class="field">
+          <label for="baseexcess_first">Base excess <span class="unit">mmol/L</span></label>
+          <input type="number" step="any" id="baseexcess_first" name="baseexcess_first" placeholder="-15 – 10" data-feature="baseexcess_first">
+          <div class="hint">Negative values indicate metabolic acidosis</div>
+        </div>
+        <div class="field">
+          <label for="bicarbonate_first">Bicarbonate <span class="unit">mmol/L</span></label>
+          <input type="number" step="any" id="bicarbonate_first" name="bicarbonate_first" placeholder="10 – 35" data-feature="bicarbonate_first">
+          
+        </div></div>
+      </section>
+      <section class="group">
+        <h2>Nutrition and inflammation</h2>
+        <div class="grid">
+        <div class="field">
+          <label for="calcium_free_first">Free calcium <span class="unit">mmol/L</span></label>
+          <input type="number" step="any" id="calcium_free_first" name="calcium_free_first" placeholder="0.8 – 1.4" data-feature="calcium_free_first">
+          
+        </div>
+        <div class="field">
+          <label for="immature_granulocytes_first">Immature granulocytes <span class="unit">%</span></label>
+          <input type="number" step="any" id="immature_granulocytes_first" name="immature_granulocytes_first" placeholder="0 – 5" data-feature="immature_granulocytes_first">
+          
+        </div>
+        <div class="field">
+          <label for="albumin_first">Albumin <span class="unit">g/dL</span></label>
+          <input type="number" step="any" id="albumin_first" name="albumin_first" placeholder="1.5 – 5.0" data-feature="albumin_first">
+          
+        </div>
+        <div class="field">
+          <label for="hemoglobin_a1c_first">Glycated haemoglobin (HbA1c) <span class="unit">%</span></label>
+          <input type="number" step="any" id="hemoglobin_a1c_first" name="hemoglobin_a1c_first" placeholder="5 – 12" data-feature="hemoglobin_a1c_first">
+          <div class="hint">Reflects glycaemia over the preceding 3 months</div>
+        </div></div>
+      </section>
+      <section class="group">
+        <h2>Muscle and metabolism</h2>
+        <div class="grid">
+        <div class="field">
+          <label for="bun_first">Blood urea nitrogen <span class="unit">mg/dL</span></label>
+          <input type="number" step="any" id="bun_first" name="bun_first" placeholder="5 – 60" data-feature="bun_first">
+          
+        </div>
+        <div class="field">
+          <label for="ck_cpk_first">Creatine kinase <span class="unit">U/L</span></label>
+          <input type="number" step="any" id="ck_cpk_first" name="ck_cpk_first" placeholder="20 – 2000" data-feature="ck_cpk_first">
+          <div class="hint">Raised in muscle injury</div>
+        </div></div>
+      </section>
+      <section class="group">
+        <h2>Coagulation</h2>
+        <div class="grid">
+        <div class="field">
+          <label for="ptt_first">Activated partial thromboplastin time (APTT) <span class="unit">s</span></label>
+          <input type="number" step="any" id="ptt_first" name="ptt_first" placeholder="20 – 60" data-feature="ptt_first">
+          
+        </div>
+        <div class="field">
+          <label for="inr_first">International normalized ratio (INR) </label>
+          <input type="number" step="any" id="inr_first" name="inr_first" placeholder="0.8 – 2.5" data-feature="inr_first">
+          
+        </div>
+        <div class="field">
+          <label for="fibrinogen_first">Fibrinogen <span class="unit">mg/dL</span></label>
+          <input type="number" step="any" id="fibrinogen_first" name="fibrinogen_first" placeholder="100 – 600" data-feature="fibrinogen_first">
+          
+        </div></div>
+      </section>
+    <div class="actions">
+      <button type="submit" class="primary">Calculate risk</button>
+      <button type="button" id="fill-demo" class="ghost">Fill example values</button>
+      <button type="reset" class="ghost">Clear</button>
+    </div>
+  </form>
+
+  <section id="result" class="card result hidden" aria-live="polite">
+    <div class="result-head">
+      <span class="label">Predicted risk of AKI</span>
+      <span id="prob" class="prob">&mdash;</span>
+    </div>
+    <div class="bar"><div id="bar-fill" class="bar-fill"></div><div id="bar-mark" class="bar-mark"></div></div>
+    <div id="band" class="band">&mdash;</div>
+    <p id="advice" class="advice"></p>
+    <p class="threshold">Decision threshold 0.372 (Youden index in the external cohort; sensitivity 0.778, specificity 0.596, negative predictive value 0.956)</p>
+  </section>
+
+  <section class="card">
+    <h2>About the model</h2>
+    <table class="meta">
+      <tr><th>Development cohort</th><td>MIMIC-IV, 2,177 training patients</td></tr>
+      <tr><th>Internal validation</th><td>933 hold-out patients, AUC 0.873</td></tr>
+      <tr><th>External validation</th><td>Single-centre cohort of 570 admissions (2024), AUC 0.716</td></tr>
+      <tr><th>Predictors</th><td>15 routine first-day laboratory tests</td></tr>
+      <tr><th>Algorithm</th><td>CatBoost, 273 trees</td></tr>
+    </table>
+  </section>
+
+  <div class="card disclaimer">
+    <strong>Disclaimer</strong>
+    <p>This tool is for research and educational use only. It is <b>not a medical device</b> and must not be the sole basis for clinical decisions. The model has not been validated prospectively and predicted probabilities should be recalibrated on local data before any clinical use.</p>
+  </div>
+</main>
+
+<footer class="wrap foot">
+  <p>All calculations run locally in your browser. No patient data is transmitted to any server.</p>
+</footer>
+
+<script src="model.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

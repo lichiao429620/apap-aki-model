@@ -1,0 +1,25 @@
+{
+  "features": [
+    "smoker",
+    "pao2fio2ratio_first",
+    "pco2_first",
+    "aado2_calc_first",
+    "baseexcess_first",
+    "calcium_free_first",
+    "immature_granulocytes_first",
+    "albumin_first",
+    "bun_first",
+    "ptt_first",
+    "inr_first",
+    "fibrinogen_first",
+    "ck_cpk_first",
+    "bicarbonate_first",
+    "hemoglobin_a1c_first"
+  ],
+  "cat_features": [],
+  "threshold": 0.372,
+  "train_auc": 0.908,
+  "test_auc": 0.873,
+  "n_train": 2177,
+  "n_test": 933
+}

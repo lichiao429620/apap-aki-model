@@ -1,0 +1,4 @@
+catboost==1.2.10
+numpy>=2.0
+pandas>=2.0
+scikit-learn>=1.5

@@ -1,0 +1,18 @@
+{
+  "_comment": "TEMPLATE ONLY. Replace each null with the proportion missing in the external validation cohort (reported in S2 Table of the manuscript). The file is not distributed with real values because they are derived from identifiable patient data.",
+  "smoker": null,
+  "pao2fio2ratio_first": null,
+  "pco2_first": null,
+  "aado2_calc_first": null,
+  "baseexcess_first": null,
+  "calcium_free_first": null,
+  "immature_granulocytes_first": null,
+  "albumin_first": null,
+  "bun_first": null,
+  "ptt_first": null,
+  "inr_first": null,
+  "fibrinogen_first": null,
+  "ck_cpk_first": null,
+  "bicarbonate_first": null,
+  "hemoglobin_a1c_first": null
+}

@@ -1,0 +1,77 @@
+{
+  "smoker": {
+    "external_missing": 0.147,
+    "development_missing": 0.0,
+    "apply": true
+  },
+  "pao2fio2ratio_first": {
+    "external_missing": 0.849,
+    "development_missing": 0.762,
+    "apply": true
+  },
+  "pco2_first": {
+    "external_missing": 0.826,
+    "development_missing": 0.686,
+    "apply": true
+  },
+  "aado2_calc_first": {
+    "external_missing": 0.851,
+    "development_missing": 0.762,
+    "apply": true
+  },
+  "baseexcess_first": {
+    "external_missing": 0.826,
+    "development_missing": 0.686,
+    "apply": true
+  },
+  "calcium_free_first": {
+    "external_missing": 0.83,
+    "development_missing": 0.719,
+    "apply": true
+  },
+  "immature_granulocytes_first": {
+    "external_missing": 0.982,
+    "development_missing": 0.737,
+    "apply": true
+  },
+  "albumin_first": {
+    "external_missing": 0.375,
+    "development_missing": 0.597,
+    "apply": false
+  },
+  "bun_first": {
+    "external_missing": 0.349,
+    "development_missing": 0.047,
+    "apply": true
+  },
+  "ptt_first": {
+    "external_missing": 0.419,
+    "development_missing": 0.262,
+    "apply": true
+  },
+  "inr_first": {
+    "external_missing": 0.419,
+    "development_missing": 0.245,
+    "apply": true
+  },
+  "fibrinogen_first": {
+    "external_missing": 0.419,
+    "development_missing": 0.764,
+    "apply": false
+  },
+  "ck_cpk_first": {
+    "external_missing": 0.688,
+    "development_missing": 0.746,
+    "apply": false
+  },
+  "bicarbonate_first": {
+    "external_missing": 0.386,
+    "development_missing": 0.05,
+    "apply": true
+  },
+  "hemoglobin_a1c_first": {
+    "external_missing": 0.688,
+    "development_missing": 0.633,
+    "apply": true
+  }
+}
